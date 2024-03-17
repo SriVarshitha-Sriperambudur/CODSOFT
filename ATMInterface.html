@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .balance {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ATM Interface</h2>
+    <form id="atmForm">
+        <input type="text" id="action" placeholder="Action (withdraw/deposit)">
+        <input type="number" id="amount" placeholder="Amount">
+        <input type="submit" value="Submit">
+    </form>
+    <div class="balance" id="balance"></div>
+</div>
+
+<script>
+    let balance = 1000; // Initial balance
+
+    // Function to handle form submission
+    document.getElementById("atmForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get values from form
+        let action = document.getElementById("action").value;
+        let amount = parseFloat(document.getElementById("amount").value);
+
+        // Handle different actions
+        if (action === "withdraw") {
+            if (amount <= balance) {
+                balance -= amount;
+                alert("Withdrawal successful!");
+            } else {
+                alert("Insufficient funds!");
+            }
+        } else if (action === "deposit") {
+            if (amount > 0) {
+                balance += amount;
+                alert("Deposit successful!");
+            } else {
+                alert("Invalid amount!");
+            }
+        } else {
+            alert("Invalid action!");
+        }
+
+        // Update balance display
+        document.getElementById("balance").innerText = "Balance: $" + balance.toFixed(2);
+
+        // Reset form fields
+        document.getElementById("action").value = "";
+        document.getElementById("amount").value = "";
+    });
+
+    // Initial balance display
+    document.getElementById("balance").innerText = "Balance: $" + balance.toFixed(2);
+</script>
+
+</body>
+</html>
